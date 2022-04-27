@@ -1,0 +1,11 @@
+.upload-product {
+    padding: 80px 0;
+}
+
+.upload-product input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    height: 40px;
+    border: 1px solid #e6e6e6;
+}

@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+:root {
+    --dark: #1C2B35;
+    --text: #0E161A;
+    --yellow: #FF9900;
+    --light-yellow: #FFE0B3;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+ol li,
+ul li {
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin-bottom: 0 !important;
+}
