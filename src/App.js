@@ -16,6 +16,7 @@ import ProductDetail from './pages/Shop/ProductDetail/ProductDetail';
 import UploadProduct from './pages/Shop/UploadProduct/UploadProduct';
 import ManageProduct from './pages/Shop/ManageProduct/ManageProduct';
 import UpdateProduct from './pages/Shop/UpdateProduct/UpdateProduct';
+import MyAddedProduct from './pages/Shop/MyAddedProduct/MyAddedProduct';
 
 function App() {
   return (
@@ -27,8 +28,21 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/shop" element={<Shop/>} />
           <Route path="/product/:id" element={<ProductDetail/>} />
-          <Route path="/upload" element={<UploadProduct/>} />
-          <Route path="/manage" element={<ManageProduct/>} />
+          <Route path="/my-products" element={
+            <RequireAuth>
+              <MyAddedProduct/>
+            </RequireAuth>
+          } />
+          <Route path="/upload" element={
+            <RequireAuth>
+              <UploadProduct/>
+            </RequireAuth>
+          } />
+          <Route path="/manage" element={
+            <RequireAuth>
+              <ManageProduct/>
+            </RequireAuth>
+          } />
           <Route path="/update/:id" element={<UpdateProduct/>} />
           <Route path="/checkout" element={
             <RequireAuth>

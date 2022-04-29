@@ -32,6 +32,7 @@ const Header = () => {
                     <NavLink to="/shop" className={({ isActive }) => (isActive ? "active-link nav-link" : "nav-link")}>Shop</NavLink>
                     <NavLink to="/upload" className={({ isActive }) => (isActive ? "active-link nav-link" : "nav-link")}>Upload</NavLink>
                     <NavLink to="/manage" className={({ isActive }) => (isActive ? "active-link nav-link" : "nav-link")}>Manage</NavLink>
+                    <NavLink to="/my-products" className={({ isActive }) => (isActive ? "active-link nav-link" : "nav-link")}>My Products</NavLink>
                     <NavDropdown title="More" id="basic-nav-dropdown">
                         <NavLink to="/login" className={({ isActive }) => (isActive ? "active-link dropdown-item" : "dropdown-item")}>Sign in</NavLink>
                         <NavLink to="/register" className={({ isActive }) => (isActive ? "active-link dropdown-item" : "dropdown-item")}>Sign up</NavLink>

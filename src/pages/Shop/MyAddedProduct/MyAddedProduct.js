@@ -1,23 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import useProducts from '../../../hooks/useProducts';
+import auth from '../../../firebase.init';
 
-const ManageProduct = () => {
-    const [products, setProducts] = useProducts();
+const MyAddedProduct = () => {
+    const [myProducts, setMyProducts] = useState([]);
+    const [user] = useAuthState(auth);
     const navigate = useNavigate();
     let count = 1;
+
+    useEffect(() => {
+        const url = `http://localhost:5000/added-product?email=${user.email}`
+        fetch(url)
+        .then(res => res.json())
+        .then(data => setMyProducts(data));
+    }, [])
 
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure?');
         if(proceed){
-            const url = `http://localhost:5000/product/${id}`;
+            const url = `http://localhost:5000/added-product/${id}`;
             fetch(url, {
                 method: 'DELETE'
             })
             .then(res => res.json())
             .then(data => {
-                const remaining = products.filter(product => product._id !== id);
-                setProducts(remaining);
+                const remaining = myProducts.filter(product => product._id !== id);
+                setMyProducts(remaining);
             })
         }
     }
@@ -26,8 +35,11 @@ const ManageProduct = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
-                        <h2>Manage Products</h2>
+                        {
+                            myProducts.length > 0 ? <h2>My added Products: {myProducts.length}</h2> : <h2>You didn't add any Product</h2>
+                        }
                         
+                        { myProducts.length > 0 &&
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -42,7 +54,7 @@ const ManageProduct = () => {
                             </thead>
                             <tbody>
                             {
-                                products.map(product => <tr key={product._id}>
+                                myProducts.map(product => <tr key={product._id}>
                                     <td>{count++}</td>
                                     <td><h6>{product.name}</h6></td>
                                     <td><p>{product._id}</p></td>
@@ -50,10 +62,11 @@ const ManageProduct = () => {
                                     <td><h6>{product.price}</h6></td>
                                     <td><button onClick={() => navigate(`/update/${product._id}`)} className='btn btn-warning'>Update</button></td>
                                     <td><button onClick={() => handleDelete(product._id)} className='btn btn-danger'>Delete</button></td>
-                                </tr>)
+                                </tr>) 
                             }
                             </tbody>
                             </table>
+                        }
                     </div>
                 </div>
             </div>
@@ -61,4 +74,4 @@ const ManageProduct = () => {
     );
 };
 
-export default ManageProduct;
+export default MyAddedProduct;

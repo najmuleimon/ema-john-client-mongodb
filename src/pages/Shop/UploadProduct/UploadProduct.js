@@ -1,10 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import {useAuthState} from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 import './UploadProduct.css';
 
 const UploadProduct = () => {
     const {register, handleSubmit, formState: { errors }} = useForm();
-    const onSubmit = data => {
+    const [user] = useAuthState(auth);
+
+    const onSubmit = (data) => {
         const url = 'http://localhost:5000/upload';
         fetch(url, {
             method: 'POST',
@@ -24,6 +28,7 @@ const UploadProduct = () => {
                 <div className="row">
                     <div className="col-lg-12">
                         <form onSubmit={handleSubmit(onSubmit)}>
+                            <input id="email" value={user?.email} {...register("email")} readOnly/>
                             <label htmlFor="pname">Product name</label>
                             <input id="pname" placeholder='Product name' {...register("name")} />
 

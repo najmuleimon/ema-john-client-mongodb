@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 const UpdateProduct = () => {
     const {register, handleSubmit, formState: { errors }} = useForm();
     const {id} = useParams();
-    console.log(id);
     const onSubmit = data => {
         const url = `http://localhost:5000/update/${id}`;
         fetch(url, {
